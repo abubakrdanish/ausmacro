@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+build/
+dist/
+
+# Secrets
+.env
+.pypirc
+
+# Data is never committed; test fixtures are synthetic and live in tests/fixtures/
+*.xlsx
+*.xls
+/data/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

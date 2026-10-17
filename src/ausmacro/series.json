@@ -1,0 +1,131 @@
+{
+  "cpi": {
+    "publisher": "abs",
+    "description": "Consumer Price Index, all groups, index numbers",
+    "title": "Consumer Price Index, Australia",
+    "catalogue": "6401.0",
+    "unit": "Index Numbers (Sep 2025 = 100.0)",
+    "freqs": [
+      "M",
+      "Q"
+    ],
+    "adjustments": {
+      "original": "10"
+    },
+    "regions": {
+      "australia": "50",
+      "sydney": "1",
+      "melbourne": "2",
+      "brisbane": "3",
+      "adelaide": "4",
+      "perth": "5",
+      "hobart": "6",
+      "darwin": "7",
+      "canberra": "8"
+    },
+    "defaults": {
+      "freq": "M",
+      "adjustment": "original"
+    },
+    "notes": "Monthly from 2024-04. Quarterly from 1948-Q3 (Darwin from 1980-Q3). Regions are capital cities; 'australia' is the weighted average of the eight capitals.",
+    "dataflow": "ABS,CPI,2.0.0",
+    "key": "1.10001.{adjustment}.{region}.{freq}"
+  },
+  "cpi_rents": {
+    "publisher": "abs",
+    "description": "Consumer Price Index, rents expenditure class, index numbers",
+    "title": "Consumer Price Index, Australia",
+    "catalogue": "6401.0",
+    "unit": "Index Numbers (Sep 2025 = 100.0)",
+    "freqs": [
+      "M",
+      "Q"
+    ],
+    "adjustments": {
+      "original": "10",
+      "seasonally_adjusted": "20"
+    },
+    "regions": {
+      "australia": "50",
+      "sydney": "1",
+      "melbourne": "2",
+      "brisbane": "3",
+      "adelaide": "4",
+      "perth": "5",
+      "hobart": "6",
+      "darwin": "7",
+      "canberra": "8"
+    },
+    "defaults": {
+      "freq": "M",
+      "adjustment": "original"
+    },
+    "notes": "Monthly from 2022-07 for all regions. Quarterly (from 1972-Q3) and seasonally adjusted (monthly) for 'australia' only. Rents are measured net of Commonwealth Rent Assistance, so they are not market asking rents.",
+    "dataflow": "ABS,CPI,2.0.0",
+    "key": "1.30014.{adjustment}.{region}.{freq}"
+  },
+  "wpi": {
+    "publisher": "abs",
+    "description": "Wage Price Index, total hourly rates of pay excluding bonuses, all sectors and industries",
+    "title": "Wage Price Index, Australia",
+    "catalogue": "6345.0",
+    "unit": "Index Numbers (2008-09 = 100.0)",
+    "freqs": [
+      "Q"
+    ],
+    "adjustments": {
+      "original": "10",
+      "seasonally_adjusted": "20",
+      "trend": "30"
+    },
+    "regions": {
+      "australia": "AUS",
+      "nsw": "1",
+      "vic": "2",
+      "qld": "3",
+      "sa": "4",
+      "wa": "5",
+      "tas": "6",
+      "nt": "7",
+      "act": "8"
+    },
+    "defaults": {
+      "freq": "Q",
+      "adjustment": "original"
+    },
+    "notes": "Quarterly from 1997-Q3. Regions are states and territories. Seasonally adjusted and trend series exist for 'australia' only.",
+    "dataflow": "ABS,WPI,1.2.0",
+    "key": "1.THRPEB.7.TOT.{adjustment}.{region}.{freq}"
+  },
+  "cash_rate": {
+    "publisher": "rba",
+    "description": "Cash rate target, per cent",
+    "title": "Cash rate target",
+    "unit": "Per cent",
+    "freqs": [
+      "M",
+      "D"
+    ],
+    "rba": {
+      "M": [
+        "F1.1",
+        "FIRMMCRT"
+      ],
+      "D": [
+        "F1",
+        "FIRMMCRTD"
+      ]
+    },
+    "adjustments": {
+      "original": ""
+    },
+    "regions": {
+      "australia": ""
+    },
+    "defaults": {
+      "freq": "M",
+      "adjustment": "original"
+    },
+    "notes": "Monthly from 1990-08 (table F1.1), as the average of the daily target over the month, so a month with a change shows a blend such as 4.36. Daily from 2011-01-04 (table F1). For the dates of changes, use get_rba('A2', 'ARBAMPCNCRT')."
+  }
+}

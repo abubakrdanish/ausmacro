@@ -1,0 +1,12 @@
+F11.1 SYNTHETIC TEST TABLE – EXCHANGE RATES
+Title,A$1=USD,Trade-weighted Index May 1970 = 100
+Description,SYNTHETIC rate,SYNTHETIC index
+Frequency,Daily,Daily
+Type,Original,Original
+Units,USD,Index
+
+
+Source,WM/Reuters,RBA
+Publication date,03-Jan-2023,03-Jan-2023
+Series ID,FXRUSD,FXRTWI
+03-Jan-2023,0.1111,11.1

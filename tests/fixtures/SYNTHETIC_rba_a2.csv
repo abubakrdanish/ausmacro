@@ -1,0 +1,13 @@
+﻿A2 SYNTHETIC TEST TABLE – CHANGES IN POLICY RATES
+Title,Change in Cash Rate Target,New Cash Rate Target
+Description,SYNTHETIC change,SYNTHETIC new target
+Frequency,As announced,As announced
+Type,Original,Original
+Units,Per cent,Per cent
+
+
+Source,RBA,RBA
+Publication date,05-May-2021,05-May-2021
+Series ID,ARBAMPCCCR,ARBAMPCNCRT
+01-Feb-1999,-0.11 to -0.22,6.66 to 6.77
+05-May-2021,0.33,6.99

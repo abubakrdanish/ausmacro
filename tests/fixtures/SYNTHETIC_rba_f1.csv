@@ -1,0 +1,16 @@
+﻿F1 SYNTHETIC TEST TABLE – MONEY MARKET
+Title,Cash Rate Target,1-month BABs/NCDs
+Description,SYNTHETIC cash rate target on date,SYNTHETIC bank bill rate
+Frequency,Daily,Daily
+Type,Original,Original
+Units,Per cent,Per cent
+
+
+Source,RBA,ASX
+Publication date,02-Jan-2025,02-Jan-2025
+Series ID,FIRMMCRTD,FIRMMBAB30D
+30-Dec-2024,9.11,N/A
+31-Dec-2024,9.12,8.21
+02-Jan-2025,9.13
+,
+,

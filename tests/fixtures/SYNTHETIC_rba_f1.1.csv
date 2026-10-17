@@ -1,0 +1,14 @@
+﻿F1.1 SYNTHETIC TEST TABLE – MONEY MARKET – MONTHLY
+Title,Cash Rate Target
+Description,SYNTHETIC cash rate target; monthly average
+Frequency,Monthly
+Type,Original
+Units,Per cent
+
+
+Source,RBA
+Publication date,01-Mar-2024
+Series ID,FIRMMCRT
+31/01/2024,7.71
+15/02/2024,7.72
+,

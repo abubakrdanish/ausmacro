@@ -1,0 +1,3 @@
+DATAFLOW,MEASURE: Measure,INDEX: Index,SECTOR: Sector,INDUSTRY: Industry,TSEST: Adjustment Type,REGION: Region,FREQ: Frequency,TIME_PERIOD: Time Period,OBS_VALUE,UNIT_MEASURE: Unit of Measure,BASE_PERIOD: Reference Base Period,OBS_STATUS: Observation Status,OBS_COMMENT: Observation Comment
+ABS:WPI(1.2.0),1: Quarterly Index,THRPEB: Total hourly rates of pay excluding bonuses,7: Private and Public,TOT: All Industries,10: Original,AUS: Australia,Q: Quarterly,2022-Q3,44.4,IN: Index Numbers,,,SYNTHETIC test data not ABS figures
+ABS:WPI(1.2.0),1: Quarterly Index,THRPEB: Total hourly rates of pay excluding bonuses,7: Private and Public,TOT: All Industries,10: Original,AUS: Australia,Q: Quarterly,2022-Q4,44.5,IN: Index Numbers,,,SYNTHETIC test data not ABS figures

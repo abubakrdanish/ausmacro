@@ -1,0 +1,3 @@
+DATAFLOW,MEASURE: Measure,INDEX: Index,TSEST: Adjustment Type,REGION: Region,FREQ: Frequency,TIME_PERIOD: Time Period,OBS_VALUE,UNIT_MEASURE: Unit of Measure,OBS_STATUS: Observation Status,DECIMALS: Decimals,OBS_COMMENT: Observation Comment,BASE_PERIOD: Reference Base Period
+ABS:CPI(2.0.0),1: Index numbers,10001: All groups CPI,10: Original,50: Australia,M: Monthly,2024-01,333.1,IN: Index Numbers,,,SYNTHETIC test data not ABS figures,25: Sep 2025 = 100.0
+ABS:CPI(2.0.0),1: Index numbers,10001: All groups CPI,10: Original,50: Australia,M: Monthly,2024-02,333.2,IN: Index Numbers,,,SYNTHETIC test data not ABS figures,25: Sep 2025 = 100.0
