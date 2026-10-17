@@ -92,3 +92,16 @@ def test_third_party_warning_skips_series_you_did_not_fetch(fake_http):
     with warnings.catch_warnings():
         warnings.simplefilter("error")
         ausmacro.attribution(df)
+
+
+def test_no_names():
+    with pytest.raises(InvalidRequestError, match="at least one series name"):
+        ausmacro.attribution([])
+
+
+def test_abs_sourced_rba_series_says_to_credit_the_abs(fake_http, fixture_bytes):
+    content = fixture_bytes("SYNTHETIC_rba_f1.1.csv").replace(b"Source,RBA", b"Source,ABS / RBA")
+    fake_http.reply(body=content)
+    df = ausmacro.get_rba("F1.1")
+    with pytest.warns(UserWarning, match="credit the ABS"):
+        ausmacro.attribution(df)

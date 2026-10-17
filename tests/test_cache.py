@@ -68,3 +68,10 @@ def test_unwritable_cache_warns_and_still_returns_data(fake_http, cache_dir):
 def test_default_folder_is_the_user_cache(monkeypatch):
     monkeypatch.delenv("AUSMACRO_CACHE_DIR")
     assert _cache.directory() == platformdirs.user_cache_path("ausmacro")
+
+
+def test_rba_tables_are_cached_too(fake_http):
+    fake_http.reply(fixture="SYNTHETIC_rba_f1.csv")
+    ausmacro.get_rba("F1")
+    ausmacro.get("cash_rate", freq="D")
+    assert len(fake_http.urls) == 1

@@ -192,3 +192,27 @@ def test_get_rba_unknown_series_suggests_one(fake_http):
     fake_http.reply(fixture="SYNTHETIC_rba_f1.csv")
     with pytest.raises(SeriesNotFoundError, match="Did you mean 'FIRMMCRTD'"):
         ausmacro.get_rba("F1", "FIRMMCRT")
+
+
+def test_get_rba_table_with_no_rows(fake_http, fixture_bytes):
+    empty = fixture_bytes("SYNTHETIC_rba_fx.csv").replace(b"03-Jan-2023,0.1111,11.1\n", b"")
+    fake_http.reply(body=empty)
+    with pytest.raises(NoDataError, match="no observations"):
+        ausmacro.get_rba("F11.1")
+
+
+def test_abs_response_with_only_blank_values(fake_http, fixture_bytes):
+    content = fixture_bytes("SYNTHETIC_abs_cpi_monthly.csv").replace(b",333.1,", b",,").replace(b",333.2,", b",,")
+    fake_http.reply(body=content)
+    with pytest.raises(NoDataError):
+        ausmacro.get_abs("ABS,CPI,2.0.0", "1.10001.10.50.M")
+
+
+def test_region_typo_suggests_the_closest(fake_http):
+    with pytest.raises(InvalidRequestError, match="Did you mean 'melbourne'"):
+        ausmacro.get("cpi", region="melborne")
+
+
+def test_no_names():
+    with pytest.raises(InvalidRequestError, match="at least one series name"):
+        ausmacro.get([])

@@ -92,3 +92,9 @@ def test_fetch_maps_error_responses(fake_http, status, body, error):
     fake_http.reply(status, body=body)
     with pytest.raises(error):
         _abs.fetch("ABS,CPI,2.0.0", "1.10001.10.50.M")
+
+
+def test_unexpected_dataflow_value_is_a_format_change(fixture_bytes):
+    content = fixture_bytes("SYNTHETIC_abs_cpi_monthly.csv").replace(b"ABS:CPI(2.0.0)", b"CPI version 2")
+    with pytest.raises(FormatChangedError, match="DATAFLOW"):
+        _abs.parse(content)

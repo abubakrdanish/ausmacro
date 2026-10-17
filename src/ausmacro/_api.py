@@ -44,7 +44,7 @@ def get(
     Example::
 
         >>> import ausmacro
-        >>> df = ausmacro.get("cpi", start="2025", region=["sydney", "melbourne"])
+        >>> df = ausmacro.get("cpi", start="2024", region=["sydney", "melbourne"])
         >>> df.columns.tolist()
         ['series', 'region', 'freq', 'adjustment', 'date', 'value', 'unit', 'source_id']
         >>> df["freq"].unique().tolist()
@@ -78,7 +78,7 @@ def get_abs(
     Example::
 
         >>> import ausmacro
-        >>> df = ausmacro.get_abs("ABS,CPI,2.0.0", "1.10001.10.50+1.Q", start="2024")
+        >>> df = ausmacro.get_abs("ABS,CPI,2.0.0", "1.10001.10.50+1.Q", start="2021")
         >>> sorted(df["series"].unique())
         ['1.10001.10.1.Q', '1.10001.10.50.Q']
     """
@@ -108,7 +108,7 @@ def get_rba(
     Example::
 
         >>> import ausmacro
-        >>> df = ausmacro.get_rba("F1", "FIRMMCRTD", start="2026-01")
+        >>> df = ausmacro.get_rba("F1", "FIRMMCRTD", start="2025")
         >>> df["unit"].unique().tolist()
         ['Per cent']
     """
@@ -302,6 +302,8 @@ def _between(
     start: DateLike,
     end: DateLike,
 ) -> pd.DataFrame:
+    if data.empty:
+        raise NoDataError("The source returned a table with no observations.")
     # Dates are filtered here, not by the API, so one cached response serves every date range.
     keep = pd.Series(True, index=data.index)
     if lower is not None:

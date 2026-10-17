@@ -18,21 +18,24 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Information Analysis",
     "Typing :: Typed",
 ]
 dependencies = [
-    "pandas>=2.0",
+    "pandas>=2.2.2",
     "platformdirs>=3.0",
     "requests>=2.31",
+    "urllib3>=1.26",
 ]
+
+[project.urls]
+Homepage = "https://github.com/abubakrdanish/ausmacro"
+Issues = "https://github.com/abubakrdanish/ausmacro/issues"
 
 [project.optional-dependencies]
 dev = [
     "mypy",
     "pandas-stubs",
-    "pip-tools",
     "pytest",
     "types-requests",
 ]

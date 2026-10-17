@@ -10,7 +10,7 @@ It is deliberately small, with four named series. If you need full ABS coverage,
 pip install ausmacro
 ```
 
-ausmacro needs Python 3.10 or later. It depends on pandas, requests and platformdirs.
+ausmacro supports Python 3.10, 3.11 and 3.12, and has been tested with them on macOS. It depends on pandas (2.2.2 or later), requests, urllib3 and platformdirs.
 
 ## Use
 
@@ -85,7 +85,7 @@ ausmacro contains no ABS or RBA data. Everything is downloaded when you ask for 
 
 Downloaded responses are kept on disk for 24 hours, so repeated calls are fast and do not hit the ABS or RBA again. The cache holds the raw responses, not DataFrames, and dates are filtered after reading, so one cached file serves every date range.
 
-- Location: your user cache folder, such as `~/Library/Caches/ausmacro` on macOS or `~/.cache/ausmacro` on Linux. Set `AUSMACRO_CACHE_DIR` to use another folder.
+- Location: your user cache folder, as chosen by [platformdirs](https://pypi.org/project/platformdirs/); on macOS that is `~/Library/Caches/ausmacro`. Set `AUSMACRO_CACHE_DIR` to use another folder.
 - Skip it for one call with `cache=False`. That call neither reads nor writes the cache.
 - Empty it with `ausmacro.clear_cache()`.
 
@@ -117,6 +117,8 @@ ausmacro identifies itself with a `User-Agent` header. It waits at least one sec
 ## Development
 
 ```
+git clone https://github.com/abubakrdanish/ausmacro.git
+cd ausmacro
 python -m venv .venv
 .venv/bin/pip install -r requirements-dev.lock -e .
 .venv/bin/pytest            # offline; the network is blocked
@@ -124,7 +126,15 @@ python -m venv .venv
 .venv/bin/mypy src
 ```
 
-Test fixtures are small synthetic files, with SYNTHETIC in their names and contents. Tests use a temporary cache folder, never your real one.
+`requirements-dev.lock` pins every development dependency for Python 3.10 to 3.12 on any operating system. It is made with [uv](https://docs.astral.sh/uv/). After changing the dependencies in `pyproject.toml`, regenerate it with:
+
+```
+uv pip compile pyproject.toml --extra dev --universal --python-version 3.10 --output-file requirements-dev.lock
+```
+
+The tests also run the examples in the public docstrings, against synthetic fixtures. Test fixtures are small synthetic files, with SYNTHETIC in their names and contents. Tests use a temporary cache folder, never your real one.
+
+GitHub Actions runs the tests and mypy on Linux and Windows with Python 3.10, 3.11 and 3.12, and once more with the oldest dependency versions `pyproject.toml` allows. The workflow is in `.github/workflows/ci.yml`.
 
 ## Licence
 

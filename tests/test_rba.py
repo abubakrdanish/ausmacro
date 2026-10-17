@@ -87,3 +87,21 @@ def test_fetch_maps_error_responses(fake_http, status, error):
     fake_http.reply(status, body=b"<html>SYNTHETIC</html>")
     with pytest.raises(error):
         _rba.fetch("ZZ9")
+
+
+def test_bad_date_in_a_known_style_is_a_format_change(fixture_bytes):
+    content = fixture_bytes("SYNTHETIC_rba_f1.csv").replace(b"31-Dec-2024", b"31-Foo-2024")
+    with pytest.raises(FormatChangedError, match="date"):
+        _rba.parse(content, "F1")
+
+
+def test_non_numeric_value_is_a_format_change(fixture_bytes):
+    content = fixture_bytes("SYNTHETIC_rba_f1.csv").replace(b"9.12", b"n.a.")
+    with pytest.raises(FormatChangedError, match="non-numeric"):
+        _rba.parse(content, "F1")
+
+
+def test_table_with_no_rows_parses_empty(fixture_bytes):
+    content = fixture_bytes("SYNTHETIC_rba_fx.csv").replace(b"03-Jan-2023,0.1111,11.1\n", b"")
+    _, frame = _rba.parse(content, "F11.1")
+    assert frame.empty

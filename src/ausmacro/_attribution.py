@@ -27,8 +27,11 @@ def attribution(data: pd.DataFrame | str | Sequence[str], *, modified: bool = Fa
     Use ``modified=True`` once you have changed ABS data in any way, for example
     rebased, averaged or computed growth rates. The ABS then asks for "Based on
     Australian Bureau of Statistics data" instead of "Source: ...". The RBA
-    asks for the same wording either way, and the RBA's year is the table's
-    publication year.
+    asks for the same wording either way.
+
+    The RBA's wording includes a year. For a frame, that is the publication
+    year of the table it came from. Called with series names, no table is
+    fetched, so the year is the current year.
 
     If some of the RBA data comes from a third party, such as WM/Reuters for
     exchange rates, this also issues a warning: the RBA's terms say you need that
