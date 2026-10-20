@@ -3,7 +3,6 @@
     "publisher": "abs",
     "description": "Consumer Price Index, all groups, index numbers",
     "title": "Consumer Price Index, Australia",
-    "catalogue": "6401.0",
     "unit": "Index Numbers (Sep 2025 = 100.0)",
     "freqs": [
       "M",
@@ -35,7 +34,6 @@
     "publisher": "abs",
     "description": "Consumer Price Index, rents expenditure class, index numbers",
     "title": "Consumer Price Index, Australia",
-    "catalogue": "6401.0",
     "unit": "Index Numbers (Sep 2025 = 100.0)",
     "freqs": [
       "M",
@@ -68,7 +66,6 @@
     "publisher": "abs",
     "description": "Wage Price Index, total hourly rates of pay excluding bonuses, all sectors and industries",
     "title": "Wage Price Index, Australia",
-    "catalogue": "6345.0",
     "unit": "Index Numbers (2008-09 = 100.0)",
     "freqs": [
       "Q"

@@ -70,12 +70,14 @@ The monthly cash rate is the average of the daily target over the month. A month
 
 ```python
 >>> ausmacro.attribution(["cpi", "cash_rate"])
-'Source: Australian Bureau of Statistics, Consumer Price Index, Australia (6401.0). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Source: Reserve Bank of Australia 2026.'
+'Source: Australian Bureau of Statistics, Consumer Price Index, Australia. Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Source: Reserve Bank of Australia 2026.'
 ```
 
 ABS data is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The [ABS conditions of sale](https://www.abs.gov.au/about/legislation-and-policy/purchasing-data/abs-conditions-sale) ask for "Source: Australian Bureau of Statistics" for unchanged data. Once you have changed the data in any way, for example by rebasing it or computing growth rates, they ask for "Based on Australian Bureau of Statistics data". Pass `modified=True` to get that wording.
 
-RBA statistical data is not under CC BY. The [RBA copyright notice](https://www.rba.gov.au/copyright/) allows personal and commercial use as long as you do not suggest the RBA endorses it. It requires the attribution "Source: Reserve Bank of Australia [year]". ausmacro uses the table's publication year.
+The [RBA copyright notice](https://www.rba.gov.au/copyright/) excludes cash-rate and financial data from its CC BY licence and gives them separate permissions. It allows personal and commercial use as long as you do not suggest the RBA endorses it. It requires the attribution "Source: Reserve Bank of Australia [year]". ausmacro uses the table's publication year.
+
+The ABS now describes 6401.0 and 6345.0 as previous catalogue numbers for the CPI and WPI releases, so ausmacro does not include them in current attribution text.
 
 Some RBA series come from third parties. For example, the AUD/USD rate in table F11.1 comes from WM/Reuters. The RBA says you need the third party's consent to reuse such data. `attribution()` warns when a frame includes one of these series.
 
@@ -136,7 +138,7 @@ uv pip compile pyproject.toml --extra dev --universal --python-version 3.10 --ou
 
 The tests also run the examples in the public docstrings, against synthetic fixtures. Test fixtures are small synthetic files, with SYNTHETIC in their names and contents. Tests use a temporary cache folder, never your real one.
 
-GitHub Actions runs the tests and mypy on Linux, macOS and Windows with Python 3.10 to 3.14, and once more with the oldest dependency versions `pyproject.toml` allows. The workflow is in `.github/workflows/ci.yml`.
+GitHub Actions runs the tests and mypy on Linux, macOS and Windows with Python 3.10 to 3.14, once more with the oldest dependency versions `pyproject.toml` allows, and in an explicit pandas 3 job. The workflow is in `.github/workflows/ci.yml`.
 
 ## Licence
 

@@ -12,23 +12,58 @@ from ausmacro.errors import InvalidRequestError, SeriesNotFoundError
 LICENCE = "Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)."
 
 
-def test_unmodified_wording():
-    assert ausmacro.attribution("cpi") == (
-        f"Source: Australian Bureau of Statistics, Consumer Price Index, Australia (6401.0). {LICENCE}"
-    )
-
-
-def test_modified_wording():
-    assert ausmacro.attribution("wpi", modified=True) == (
-        "Based on Australian Bureau of Statistics data: Wage Price Index, Australia (6345.0). "
-        + LICENCE
-    )
-
-
-def test_same_publication_is_named_once():
-    text = ausmacro.attribution(["cpi", "cpi_rents", "wpi"])
-    assert text.count("Consumer Price Index") == 1
-    assert "(6401.0) and Wage Price Index, Australia (6345.0)." in text
+@pytest.mark.parametrize(
+    ("data", "modified", "expected"),
+    [
+        pytest.param(
+            "cpi",
+            False,
+            f"Source: Australian Bureau of Statistics, Consumer Price Index, Australia. {LICENCE}",
+            id="single-abs",
+        ),
+        pytest.param(
+            ["cpi", "cpi_rents", "wpi"],
+            False,
+            "Source: Australian Bureau of Statistics, Consumer Price Index, Australia and "
+            f"Wage Price Index, Australia. {LICENCE}",
+            id="multiple-abs",
+        ),
+        pytest.param(
+            "cash_rate",
+            False,
+            f"Source: Reserve Bank of Australia {dt.date.today().year}.",
+            id="rba",
+        ),
+        pytest.param(
+            ["cpi", "cash_rate"],
+            False,
+            f"Source: Australian Bureau of Statistics, Consumer Price Index, Australia. {LICENCE} "
+            f"Source: Reserve Bank of Australia {dt.date.today().year}.",
+            id="abs-and-rba",
+        ),
+        pytest.param(
+            "wpi",
+            True,
+            f"Based on Australian Bureau of Statistics data: Wage Price Index, Australia. {LICENCE}",
+            id="modified-abs",
+        ),
+        pytest.param(
+            ["cpi", "cash_rate"],
+            True,
+            "Based on Australian Bureau of Statistics data: Consumer Price Index, Australia. "
+            f"{LICENCE} Source: Reserve Bank of Australia {dt.date.today().year}.",
+            id="modified-abs-and-rba",
+        ),
+        pytest.param(
+            "cash_rate",
+            True,
+            f"Source: Reserve Bank of Australia {dt.date.today().year}.",
+            id="modified-rba",
+        ),
+    ],
+)
+def test_exact_wording_for_source_combinations(data, modified, expected):
+    assert ausmacro.attribution(data, modified=modified) == expected
 
 
 def test_frame_from_get(fake_http):
@@ -61,21 +96,6 @@ def test_rba_wording_uses_the_publication_year(fake_http):
     with warnings.catch_warnings():
         warnings.simplefilter("error")  # F1.1's cash rate is RBA-sourced, so no warning
         assert ausmacro.attribution(df) == "Source: Reserve Bank of Australia 2024."
-
-
-def test_rba_wording_by_name_uses_this_year():
-    year = dt.date.today().year
-    assert ausmacro.attribution("cash_rate") == f"Source: Reserve Bank of Australia {year}."
-
-
-def test_abs_and_rba_together_and_modified(fake_http):
-    fake_http.reply(fixture="SYNTHETIC_abs_cpi_monthly.csv")
-    fake_http.reply(fixture="SYNTHETIC_rba_f1.1.csv")
-    df = ausmacro.get(["cpi", "cash_rate"])
-    assert ausmacro.attribution(df, modified=True) == (
-        "Based on Australian Bureau of Statistics data: Consumer Price Index, Australia (6401.0). "
-        f"{LICENCE} Source: Reserve Bank of Australia 2024."
-    )
 
 
 def test_third_party_rba_series_warn(fake_http):

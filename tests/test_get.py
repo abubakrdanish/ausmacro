@@ -67,7 +67,7 @@ def test_several_series_in_one_frame(fake_http):
     fake_http.reply(fixture="SYNTHETIC_abs_wpi.csv")
     df = ausmacro.get(["cpi", "wpi"])
     assert list(df["series"].unique()) == ["cpi", "wpi"]
-    assert [s["catalogue"] for s in df.attrs["sources"]] == ["6401.0", "6345.0"]
+    assert [s["catalogue"] for s in df.attrs["sources"]] == ["", ""]
 
 
 def test_missing_region_warns(fake_http):

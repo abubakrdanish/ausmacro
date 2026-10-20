@@ -44,7 +44,7 @@ def attribution(data: pd.DataFrame | str | Sequence[str], *, modified: bool = Fa
 
         >>> import ausmacro
         >>> print(ausmacro.attribution(["cpi", "wpi"]))
-        Source: Australian Bureau of Statistics, Consumer Price Index, Australia (6401.0) and Wage Price Index, Australia (6345.0). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+        Source: Australian Bureau of Statistics, Consumer Price Index, Australia and Wage Price Index, Australia. Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
     """
     sources = _sources(data)
     parts = []
