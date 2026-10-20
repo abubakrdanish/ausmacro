@@ -10,7 +10,7 @@ It is deliberately small, with four named series. If you need full ABS coverage,
 pip install ausmacro
 ```
 
-ausmacro supports Python 3.10, 3.11 and 3.12, and has been tested with them on macOS. It depends on pandas (2.2.2 or later), requests, urllib3 and platformdirs.
+ausmacro supports Python 3.10 to 3.14 on Linux, macOS and Windows, and is tested on each of them. It depends on pandas (2.2.2 or later), requests, urllib3 and platformdirs.
 
 ## Use
 
@@ -51,7 +51,9 @@ The CPI is published by capital city and the WPI by state. ausmacro does not map
 
 CPI rents are measured net of Commonwealth Rent Assistance, so they do not track market asking rents.
 
-The monthly cash rate is the average of the daily target over the month. A month with a change shows a blend: September 2026 is 4.36, between 4.35 and 4.60. For the exact dates of changes, use `get_rba("A2", "ARBAMPCNCRT")`. A2 dates each change on the day it takes effect, which is the day after the announcement.
+Quarterly CPI carries the label `Sep 2025 = 100.0`, but the September quarter 2025 reads 99.73, not 100.0. It is the monthly series that reads 100.0 in September 2025, and 99.73 is the average of the July, August and September monthly values. Both the values and the label come from the ABS, and ausmacro passes them through unchanged.
+
+The monthly cash rate is the average of the daily target over the month. A month with a change shows a blend: September 2026 is 4.36, between 4.35 and 4.60. For the exact dates of changes, use `get_rba("A2", "ARBAMPCNCRT")`. A2 dates each change on the day it takes effect.
 
 ## Functions
 
@@ -126,7 +128,7 @@ python -m venv .venv
 .venv/bin/mypy src
 ```
 
-`requirements-dev.lock` pins every development dependency for Python 3.10 to 3.12 on any operating system. It is made with [uv](https://docs.astral.sh/uv/). After changing the dependencies in `pyproject.toml`, regenerate it with:
+`requirements-dev.lock` pins every development dependency for Python 3.10 to 3.14 on any operating system. It is made with [uv](https://docs.astral.sh/uv/). After changing the dependencies in `pyproject.toml`, regenerate it with:
 
 ```
 uv pip compile pyproject.toml --extra dev --universal --python-version 3.10 --output-file requirements-dev.lock
@@ -134,7 +136,7 @@ uv pip compile pyproject.toml --extra dev --universal --python-version 3.10 --ou
 
 The tests also run the examples in the public docstrings, against synthetic fixtures. Test fixtures are small synthetic files, with SYNTHETIC in their names and contents. Tests use a temporary cache folder, never your real one.
 
-GitHub Actions runs the tests and mypy on Linux and Windows with Python 3.10, 3.11 and 3.12, and once more with the oldest dependency versions `pyproject.toml` allows. The workflow is in `.github/workflows/ci.yml`.
+GitHub Actions runs the tests and mypy on Linux, macOS and Windows with Python 3.10 to 3.14, and once more with the oldest dependency versions `pyproject.toml` allows. The workflow is in `.github/workflows/ci.yml`.
 
 ## Licence
 

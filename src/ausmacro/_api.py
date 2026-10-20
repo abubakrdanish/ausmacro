@@ -224,6 +224,8 @@ def _fetch_series(
                 stacklevel=3,
             )
     # The WPI response has no base period, so fall back to the one in the registry.
+    # For WPI that is 2008-09 = 100.0, stated by the ABS in Wage Price Index:
+    # Concepts, Sources and Methods, 2012, paragraph 11.3.
     data["unit"] = data["unit"].where(data["_base_period"] != "", entry.unit)
     data["series"] = entry.name
     source = {"publisher": "abs", "title": entry.title, "catalogue": entry.catalogue}
